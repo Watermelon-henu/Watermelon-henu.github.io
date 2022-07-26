@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Watermelon-henu.github.io</id>
+    <title>超级无敌大西瓜</title>
+    <updated>2022-07-26T10:16:54.269Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Watermelon-henu.github.io"/>
+    <link rel="self" href="https://Watermelon-henu.github.io/atom.xml"/>
+    <logo>https://Watermelon-henu.github.io/images/avatar.png</logo>
+    <icon>https://Watermelon-henu.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 超级无敌大西瓜</rights>
+    <entry>
+        <title type="html"><![CDATA[半监督分类]]></title>
+        <id>https://Watermelon-henu.github.io/post/7mH85DdZT/</id>
+        <link href="https://Watermelon-henu.github.io/post/7mH85DdZT/">
+        </link>
+        <updated>2022-07-26T10:16:01.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[排序算法]]></title>
+        <id>https://Watermelon-henu.github.io/post/d7sk33B3d/</id>
+        <link href="https://Watermelon-henu.github.io/post/d7sk33B3d/">
+        </link>
+        <updated>2022-07-26T09:17:03.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git基本操作]]></title>
+        <id>https://Watermelon-henu.github.io/post/git-ji-ben-cao-zuo/</id>
+        <link href="https://Watermelon-henu.github.io/post/git-ji-ben-cao-zuo/">
+        </link>
+        <updated>2022-07-26T08:56:19.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[how to write paper]]></title>
+        <id>https://Watermelon-henu.github.io/post/how-to-write-paper/</id>
+        <link href="https://Watermelon-henu.github.io/post/how-to-write-paper/">
+        </link>
+        <updated>2022-07-22T09:38:36.000Z</updated>
+    </entry>
+</feed>
