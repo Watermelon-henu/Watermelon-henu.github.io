@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>半监督分类 | 超级无敌大西瓜</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Watermelon-henu.github.io/favicon.ico?v=1663413593995">
+<link rel="stylesheet" href="https://Watermelon-henu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="#!coding:utf-8
+import torch
+from torch.nn import functional as F
+
+from ramps import exp_rampup
+
+class Trainer:
+
+    def ..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Watermelon-henu.github.io">
+        <img src="https://Watermelon-henu.github.io/images/avatar.png?v=1663413593995" class="site-logo">
+        <h1 class="site-title">超级无敌大西瓜</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://Watermelon-henu.github.io/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/Watermelon-henu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      We choose to go to the moon，not because they are easy but because they are hard. 
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://Watermelon-henu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">半监督分类</h2>
+            <div class="post-date">2022-07-26</div>
+            
+            <div class="post-content" v-pre>
+              <pre><code class="language-python">#!coding:utf-8
+import torch
+from torch.nn import functional as F
+
+from ramps import exp_rampup
+
+class Trainer:
+
+    def __init__(self, model, ema_model, optimizer, device):
+        self.model      = model
+        self.ema_model  = ema_model
+        self.optimizer  = optimizer
+        self.ce_loss    = torch.nn.BCEWithLogitsLoss()
+        self.usp_weight = 30.0
+        self.ema_decay  = 0.97
+        self.rampup     = exp_rampup(30)
+        self.device     = device
+        self.global_step= 0
+
+    def cons_loss(self, logit1, logit2):
+        assert logit1.size() == logit2.size()
+        return F.mse_loss(logit1, logit2)
+
+    def train_iteration(self, data_loader_labeled, data_loader_unlabeled):
+
+        # === training with label ===
+        for x, y in data_loader_labeled:
+            stduent_input = x.to(self.device)
+            teacher_input = x.to(self.device)
+            targets = y.to(self.device)
+            self.global_step = self.global_step + 1
+
+            # === forward ===
+            outputs = self.model(stduent_input)
+            loss = self.ce_loss(outputs, targets)
+            print(&quot;labeled_loss: %0.3f&quot; % loss.item())
+            
+            # === Semi-supervised Training ===
+            self.update_ema(self.model, self.ema_model, self.ema_decay, self.global_step)
+            # consistency loss
+            with torch.no_grad():
+                ema_outputs = self.ema_model(teacher_input)
+                ema_outputs = ema_outputs.detach()
+            cons_loss  = self.cons_loss(outputs, ema_outputs)
+            cons_loss *= self.rampup(self.epoch)*self.usp_weight
+            loss += cons_loss
+            print(&quot;consistent_loss: %0.3f&quot; % cons_loss.item())
+
+            # backward
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+
+        # === training without label ===
+        for x in data_loader_unlabeled:
+            stduent_input = x.to(self.device)
+            teacher_input = x.to(self.device)
+
+            # === forward ===
+            outputs = self.model(stduent_input)
+
+            # === Semi-supervised Training ===
+            self.update_ema(self.model, self.ema_model, self.ema_decay, self.global_step)
+            with torch.no_grad():
+                ema_outputs = self.ema_model(teacher_input)
+                ema_outputs = ema_outputs.detach()
+            # === consistency loss ===
+            cons_loss  = self.cons_loss(outputs, ema_outputs)
+            cons_loss *= self.rampup(self.epoch)*self.usp_weight
+            print(&quot;unlabeled_consistent_loss: %0.3f&quot; % cons_loss.item())
+
+            # backward
+            self.optimizer.zero_grad()
+            cons_loss.backward()
+            self.optimizer.step()
+        return self.model, self.ema_model
+
+    def train(self, data_loader_labeled, data_loader_unlabeled):
+        self.model.train()
+        self.ema_model.train()
+        with torch.enable_grad():
+            return self.train_iteration(data_loader_labeled, data_loader_unlabeled)
+
+    def test(self, model, ema_model, stu_ckpt, t_ckpt, test_data):
+        step = 1
+        model.load_state_dict(torch.load(stu_ckpt, map_location='cpu'))
+        ema_model.load_state_dict(torch.load(t_ckpt, map_location='cpu'))
+        for x, y in test_data:
+            print(&quot;----- img %d -----&quot; % step)
+            stduent_input = x.to(self.device)
+            teacher_input = x.to(self.device)
+            targets = y.to(self.device)
+            outputs = self.model(stduent_input)
+            student_test_loss = self.ce_loss(outputs, targets)
+            print(&quot;student_test_loss: %0.3f&quot; % student_test_loss.item())
+            outputs = self.ema_model(teacher_input)
+            teacher_test_loss = self.ce_loss(outputs, targets)
+            print(&quot;teacher_test_loss: %0.3f&quot; % teacher_test_loss.item())
+            step = step + 1
+
+    def loop_train(self, epochs, train_data_labeled, train_data_unlabeled, scheduler=None):
+        for ep in range(epochs):
+            self.epoch = ep
+            print(&quot;------ Training epochs: {} ------&quot;.format(ep))
+            model, ema_model = self.train(train_data_labeled, train_data_unlabeled)
+            if scheduler is not None:
+                scheduler.step()
+            torch.save(model.state_dict(), 'student_weights_%d.pth' % ep)
+            torch.save(ema_model.state_dict(), 'teacher_weights_%d.pth' % ep)
+            # save model
+        print(&quot;Model is saved!&quot;)
+
+    def update_ema(self, model, ema_model, alpha, global_step):
+        alpha = min(1 - 1 / (global_step + 1), alpha)
+        for ema_param, param in zip(ema_model.parameters(), model.parameters()):
+            ema_param.data.mul_(alpha).add_(1 - alpha, param.data)
+</code></pre>
+<p>参考论文：<a href="https://github.com/Richard-Wang-2499/Simple-U-net-with-mean-teacher">Simple-U-net-with-mean-teacher</a></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Watermelon-henu.github.io/post/d7sk33B3d/">
+                  <h3 class="post-title">
+                    排序算法
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

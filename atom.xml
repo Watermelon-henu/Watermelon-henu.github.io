@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://Watermelon-henu.github.io</id>
+    <title>超级无敌大西瓜</title>
+    <updated>2022-09-17T11:23:26.174Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://Watermelon-henu.github.io"/>
+    <link rel="self" href="https://Watermelon-henu.github.io/atom.xml"/>
+    <subtitle>We choose to go to the moon，not because they are easy but because they are hard. </subtitle>
+    <logo>https://Watermelon-henu.github.io/images/avatar.png</logo>
+    <icon>https://Watermelon-henu.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, 超级无敌大西瓜</rights>
+    <entry>
+        <title type="html"><![CDATA[六级作文小范文]]></title>
+        <id>https://Watermelon-henu.github.io/post/CH2uo8iqe/</id>
+        <link href="https://Watermelon-henu.github.io/post/CH2uo8iqe/">
+        </link>
+        <updated>2022-09-17T11:19:33.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[第四讲]]></title>
+        <id>https://Watermelon-henu.github.io/post/xG_QuRI8n/</id>
+        <link href="https://Watermelon-henu.github.io/post/xG_QuRI8n/">
+        </link>
+        <updated>2022-08-07T13:22:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[第三讲]]></title>
+        <id>https://Watermelon-henu.github.io/post/avgH6t4fi/</id>
+        <link href="https://Watermelon-henu.github.io/post/avgH6t4fi/">
+        </link>
+        <updated>2022-08-07T13:21:35.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[第二讲]]></title>
+        <id>https://Watermelon-henu.github.io/post/YOZMH8eQx/</id>
+        <link href="https://Watermelon-henu.github.io/post/YOZMH8eQx/">
+        </link>
+        <updated>2022-08-07T13:21:04.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[第一讲]]></title>
+        <id>https://Watermelon-henu.github.io/post/p8GAWMsqQ/</id>
+        <link href="https://Watermelon-henu.github.io/post/p8GAWMsqQ/">
+        </link>
+        <updated>2022-08-07T13:20:47.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[学习文档]]></title>
+        <id>https://Watermelon-henu.github.io/post/jPnMwETRG/</id>
+        <link href="https://Watermelon-henu.github.io/post/jPnMwETRG/">
+        </link>
+        <updated>2022-08-05T13:27:35.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[半监督分类]]></title>
+        <id>https://Watermelon-henu.github.io/post/7mH85DdZT/</id>
+        <link href="https://Watermelon-henu.github.io/post/7mH85DdZT/">
+        </link>
+        <updated>2022-07-26T10:16:01.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[排序算法]]></title>
+        <id>https://Watermelon-henu.github.io/post/d7sk33B3d/</id>
+        <link href="https://Watermelon-henu.github.io/post/d7sk33B3d/">
+        </link>
+        <updated>2022-07-26T09:17:03.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git基本操作]]></title>
+        <id>https://Watermelon-henu.github.io/post/git-ji-ben-cao-zuo/</id>
+        <link href="https://Watermelon-henu.github.io/post/git-ji-ben-cao-zuo/">
+        </link>
+        <updated>2022-07-26T08:56:19.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[how to write paper]]></title>
+        <id>https://Watermelon-henu.github.io/post/how-to-write-paper/</id>
+        <link href="https://Watermelon-henu.github.io/post/how-to-write-paper/">
+        </link>
+        <updated>2022-07-22T09:38:36.000Z</updated>
+    </entry>
+</feed>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Git基本操作 | 超级无敌大西瓜</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Watermelon-henu.github.io/favicon.ico?v=1663413593995">
+<link rel="stylesheet" href="https://Watermelon-henu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比。
+本章将对有关创建与提交你的项目快照的命令作介绍。
+Git 常用的是以下 6 个命令：git clone、git push、git add 、git commit、git ch..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Watermelon-henu.github.io">
+        <img src="https://Watermelon-henu.github.io/images/avatar.png?v=1663413593995" class="site-logo">
+        <h1 class="site-title">超级无敌大西瓜</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://Watermelon-henu.github.io/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/Watermelon-henu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      We choose to go to the moon，not because they are easy but because they are hard. 
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://Watermelon-henu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Git基本操作</h2>
+            <div class="post-date">2022-07-26</div>
+            
+            <div class="post-content" v-pre>
+              <p>Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比。</p>
+<p>本章将对有关创建与提交你的项目快照的命令作介绍。</p>
+<p>Git 常用的是以下 6 个命令：<strong>git clone</strong>、<strong>git push</strong>、<strong>git add</strong> 、<strong>git commit</strong>、<strong>git checkout</strong>、<strong>git pull</strong>，后面我们会详细介绍。</p>
+<figure data-type="image" tabindex="1"><img src="https://www.runoob.com/wp-content/uploads/2015/02/git-command.jpg" alt="" loading="lazy"></figure>
+<p><strong>说明：</strong></p>
+<ul>
+<li>workspace：工作区</li>
+<li>staging area：暂存区/缓存区</li>
+<li>local repository：版本库或本地仓库</li>
+<li>remote repository：远程仓库</li>
+</ul>
+<p>一个简单的操作步骤：</p>
+<pre><code>$ git init    
+$ git add .    
+$ git commit  
+</code></pre>
+<ul>
+<li>git init - 初始化仓库。</li>
+<li>git add . - 添加文件到暂存区。</li>
+<li>git commit - 将暂存区内容添加到仓库中。</li>
+</ul>
+<h3 id="创建仓库命令">创建仓库命令</h3>
+<p>下表列出了 git 创建仓库的命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.runoob.com/git/git-init.html">git init</a></td>
+<td>初始化仓库</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-clone.html">git clone</a></td>
+<td>拷贝一份远程仓库，也就是下载一个项目。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="提交与修改">提交与修改</h2>
+<p>Git 的工作就是创建和保存你的项目的快照及与之后的快照进行对比。</p>
+<p>下表列出了有关创建与提交你的项目的快照的命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.runoob.com/git/git-add.html">git add</a></td>
+<td>添加文件到暂存区</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-status.html">git status</a></td>
+<td>查看仓库当前的状态，显示有变更的文件。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-diff.html">git diff</a></td>
+<td>比较文件的不同，即暂存区和工作区的差异。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-commit.html">git commit</a></td>
+<td>提交暂存区到本地仓库。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-reset.html">git reset</a></td>
+<td>回退版本。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-rm.html">git rm</a></td>
+<td>将文件从暂存区和工作区中删除。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-mv.html">git mv</a></td>
+<td>移动或重命名工作区文件。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="提交日志">提交日志</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.runoob.com/git/git-commit-history.html#git-log">git log</a></td>
+<td>查看历史提交记录</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-commit-history.html#git-blame">git blame <file></a></td>
+<td>以列表形式查看指定文件的历史修改记录</td>
+</tr>
+</tbody>
+</table>
+<h3 id="远程操作">远程操作</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.runoob.com/git/git-remote.html">git remote</a></td>
+<td>远程仓库操作</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-fetch.html">git fetch</a></td>
+<td>从远程获取代码库</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-pull.html">git pull</a></td>
+<td>下载远程代码并合并</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/git/git-push.html">git push</a></td>
+<td>上传远程代码并合并</td>
+</tr>
+</tbody>
+</table>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Watermelon-henu.github.io/post/how-to-write-paper/">
+                  <h3 class="post-title">
+                    how to write paper
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>排序算法 | 超级无敌大西瓜</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Watermelon-henu.github.io/favicon.ico?v=1663413593995">
+<link rel="stylesheet" href="https://Watermelon-henu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="void quick_sort(int q[], int l, int r)
+{
+    if (l &gt;= r) return;
+    int i = l - 1, j = r + 1, x = q[l];
+    while (i..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Watermelon-henu.github.io">
+        <img src="https://Watermelon-henu.github.io/images/avatar.png?v=1663413593995" class="site-logo">
+        <h1 class="site-title">超级无敌大西瓜</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://Watermelon-henu.github.io/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/Watermelon-henu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      We choose to go to the moon，not because they are easy but because they are hard. 
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://Watermelon-henu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">排序算法</h2>
+            <div class="post-date">2022-07-26</div>
+            
+            <div class="post-content" v-pre>
+              <pre><code class="language-c++">void quick_sort(int q[], int l, int r)
+{
+    if (l &gt;= r) return;
+    int i = l - 1, j = r + 1, x = q[l];
+    while (i &lt; j)
+    {
+        do i ++ ; while (q[i] &lt; x);
+        do j -- ; while (q[j] &gt; x);
+        if (i &lt; j) swap(q[i], q[j]);
+        else break;
+    }
+    quick_sort(q, l, j), quick_sort(q, j + 1, r);
+}
+</code></pre>
+<pre><code class="language-c++">void merge_sort(int q[], int l, int r)
+{
+    if (l &gt;= r) return;
+    int mid = l + r &gt;&gt; 1;
+    merge_sort(q, l, mid);
+    merge_sort(q, mid + 1, r);
+
+    int k = 0, i = l, j = mid + 1;
+    while (i &lt;= mid &amp;&amp; j &lt;= r)
+        if (q[i] &lt; q[j]) tmp[k ++ ] = q[i ++ ];
+        else tmp[k ++ ] = q[j ++ ];
+
+    while (i &lt;= mid) tmp[k ++ ] = q[i ++ ];
+    while (j &lt;= r) tmp[k ++ ] = q[j ++ ];
+
+    for (i = l, j = 0; i &lt;= r; i ++, j ++ ) q[i] = tmp[j];
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Watermelon-henu.github.io/post/git-ji-ben-cao-zuo/">
+                  <h3 class="post-title">
+                    Git基本操作
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

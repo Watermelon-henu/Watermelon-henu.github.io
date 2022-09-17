@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>第二讲 | 超级无敌大西瓜</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Watermelon-henu.github.io/favicon.ico?v=1663413593995">
+<link rel="stylesheet" href="https://Watermelon-henu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="位运算
+//求n的第k位数字: n &gt;&gt; k &amp; 1
+//返回n的最后一位1：lowbit(n) = n &amp; -n
+
+双指针算法
+for (int i = 0, j = 0; i &lt; n; i ++ )
+{..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Watermelon-henu.github.io">
+        <img src="https://Watermelon-henu.github.io/images/avatar.png?v=1663413593995" class="site-logo">
+        <h1 class="site-title">超级无敌大西瓜</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://Watermelon-henu.github.io/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/Watermelon-henu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      We choose to go to the moon，not because they are easy but because they are hard. 
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://Watermelon-henu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">第二讲</h2>
+            <div class="post-date">2022-08-07</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="位运算">位运算</h1>
+<pre><code class="language-c++">//求n的第k位数字: n &gt;&gt; k &amp; 1
+//返回n的最后一位1：lowbit(n) = n &amp; -n
+</code></pre>
+<h1 id="双指针算法">双指针算法</h1>
+<pre><code class="language-c++">for (int i = 0, j = 0; i &lt; n; i ++ )
+{
+	while (j &lt; i &amp;&amp; check(i, j)) j ++ ;
+	// 具体问题的逻辑
+}
+常见问题分类：
+	(1) 对于一个序列，用两个指针维护一段区间
+	(2) 对于两个序列，维护某种次序，比如归并排序中合并两个有序序列的操作
+
+</code></pre>
+<h1 id="离散化">离散化</h1>
+<pre><code class="language-c++">vector&lt;int&gt; alls; // 存储所有待离散化的值
+sort(alls.begin(), alls.end()); // 将所有值排序
+alls.erase(unique(alls.begin(), alls.end()), alls.end());	// 去掉重复元素
+
+// 二分求出x对应的离散化的值
+int find(int x)
+{
+	int l = 0, r = alls.size() - 1;
+	while (l &lt; r)
+	{
+		int mid = l + r &gt;&gt; 1;
+		if (alls[mid] &gt;= x) r = mid;
+		else l = mid + 1;
+	}
+	return r + 1;
+}
+</code></pre>
+<h1 id="区间合并">区间合并</h1>
+<pre><code class="language-c++">// 将所有存在交集的区间合并
+void merge(vector&lt;PII&gt; &amp;segs)
+{
+vector&lt;PII&gt; res;
+sort(segs.begin(), segs.end());
+
+int st = -2e9, ed = -2e9;
+for (auto seg : segs)
+	if (ed &lt; seg.first)
+	{
+		if (st != -2e9) res.push_back({st, ed});
+		st = seg.first, ed = seg.second;
+}
+	else ed = max(ed, seg.second);
+
+if (st != -2e9) res.push_back({st, ed});
+
+segs = res;
+}
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Watermelon-henu.github.io/post/p8GAWMsqQ/">
+                  <h3 class="post-title">
+                    第一讲
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

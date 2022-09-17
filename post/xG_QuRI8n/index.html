@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>第四讲 | 超级无敌大西瓜</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Watermelon-henu.github.io/favicon.ico?v=1663413593995">
+<link rel="stylesheet" href="https://Watermelon-henu.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+
+Trie树
+int son[N][26], cnt[N], idx;
+// 0号点既是根节点，又是空节点
+// son[][]存储树中每个节点的子节点
+// cnt[]存储以每个节点结尾的单词数量
+
+// 插入一个字符串
+void in..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Watermelon-henu.github.io">
+        <img src="https://Watermelon-henu.github.io/images/avatar.png?v=1663413593995" class="site-logo">
+        <h1 class="site-title">超级无敌大西瓜</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            文章
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://Watermelon-henu.github.io/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/Watermelon-henu" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      We choose to go to the moon，not because they are easy but because they are hard. 
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://Watermelon-henu.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">第四讲</h2>
+            <div class="post-date">2022-08-07</div>
+            
+            <div class="post-content" v-pre>
+              <ol>
+<li>
+<p>Trie树</p>
+<pre><code class="language-c++">int son[N][26], cnt[N], idx;
+// 0号点既是根节点，又是空节点
+// son[][]存储树中每个节点的子节点
+// cnt[]存储以每个节点结尾的单词数量
+
+// 插入一个字符串
+void insert(char *str)
+{
+	int p = 0;
+	for (int i = 0; str[i]; i ++ )
+	{
+		int u = str[i] - 'a';
+		if (!son[p][u]) son[p][u] = ++ idx;
+		p = son[p][u];
+	}
+	cnt[p] ++ ;
+}
+
+// 查询字符串出现的次数
+int query(char *str)
+{
+	int p = 0;
+	for (int i = 0; str[i]; i ++ )
+	{
+		int u = str[i] - 'a';
+		if (!son[p][u]) return 0;
+		p = son[p][u];
+	}
+	return cnt[p];
+}
+</code></pre>
+</li>
+<li>
+<p>并查集</p>
+<p>(1)朴素并查集：</p>
+<pre><code class="language-c++">int p[N]; //存储每个点的祖宗节点
+
+// 返回x的祖宗节点
+int find(int x)
+{
+	if (p[x] != x) p[x] = find(p[x]);
+	return p[x];
+}
+
+// 初始化，假定节点编号是1~n
+for (int i = 1; i &lt;= n; i ++ ) p[i] = i;
+
+// 合并a和b所在的两个集合：
+p[find(a)] = find(b);
+</code></pre>
+</li>
+</ol>
+<pre><code class="language-c++">(2)维护size的并查集：
+
+	int p[N], size[N];
+	//p[]存储每个点的祖宗节点, size[]只有祖宗节点的有意义，表示祖宗节点所在集合中的点的数量
+
+	// 返回x的祖宗节点
+	int find(int x)
+	{
+		if (p[x] != x) p[x] = find(p[x]);
+		return p[x];
+	}
+
+	// 初始化，假定节点编号是1~n
+	for (int i = 1; i &lt;= n; i ++ )
+	{
+		p[i] = i;
+		size[i] = 1;
+	}
+
+	// 合并a和b所在的两个集合：
+	p[find(a)] = find(b);
+	size[b] += size[a];
+</code></pre>
+<pre><code class="language-c++">(3)维护到祖宗节点距离的并查集：
+
+	int p[N], d[N];
+	//p[]存储每个点的祖宗节点, d[x]存储x到p[x]的距离
+
+	// 返回x的祖宗节点
+	int find(int x)
+	{
+		if (p[x] != x)
+		{
+			int u = find(p[x]);
+			d[x] += d[p[x]];
+			p[x] = u;
+		}
+		return p[x];
+	}
+
+	// 初始化，假定节点编号是1~n
+	for (int i = 1; i &lt;= n; i ++ )
+	{
+		p[i] = i;
+		d[I] = 0;
+	}
+
+	// 合并a和b所在的两个集合：
+	p[find(a)] = find(b);
+	d[find(a)] = distance; // 根据具体问题，初始化find(a)的偏移量
+</code></pre>
+<ol start="3">
+<li>
+<p>堆</p>
+<pre><code class="language-c++">// h[N]存储堆中的值, h[1]是堆顶，x的左儿子是2x, 右儿子是2x + 1
+// ph[k]存储第k个插入的点在堆中的位置
+// hp[k]存储堆中下标是k的点是第几个插入的
+int h[N], ph[N], hp[N], size;
+
+// 交换两个点，及其映射关系
+void heap_swap(int a, int b)
+{
+	swap(ph[hp[a]],ph[hp[b]]);
+	swap(hp[a], hp[b]);
+swap(h[a], h[b]);
+}
+
+void down(int u)
+{
+	int t = u;
+	if (u * 2 &lt;= size &amp;&amp; h[u * 2] &lt; h[t]) t = u * 2;
+	if (u * 2 + 1 &lt;= size &amp;&amp; h[u * 2 + 1] &lt; h[t]) t = u * 2 + 1;
+	if (u != t)
+	{
+		heap_swap(u, t);
+		down(t);
+}
+}
+
+void up(int u)
+{
+	while (u / 2 &amp;&amp; h[u] &lt; h[u / 2])
+	{
+		heap_swap(u, u / 2);
+		u &gt;&gt;= 1;
+	}
+}
+
+// O(n)建堆
+for (int i = n / 2; i; i -- ) down(i);
+</code></pre>
+</li>
+</ol>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Watermelon-henu.github.io/post/avgH6t4fi/">
+                  <h3 class="post-title">
+                    第三讲
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
